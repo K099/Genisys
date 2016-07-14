@@ -36,9 +36,8 @@ class PlayerKickEvent extends PlayerEvent implements Cancellable{
 	/** @var string */
 	protected $reason;
 
-	public function __construct(Player $player, $reason, $quitMessage){
+	public function __construct(Player $player, $reason){
 		$this->player = $player;
-		$this->quitMessage = $quitMessage;
 		$this->reason = $reason;
 	}
 

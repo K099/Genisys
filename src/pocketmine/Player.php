@@ -2100,11 +2100,11 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 	protected function processLogin(){
 		if(!$this->server->isWhitelisted(strtolower($this->getName()))){
-			$this->close($this->getLeaveMessage(), "Server is white-listed");
+			$this->close("", "Server is white-listed");
 
 			return;
 		}elseif($this->server->getNameBans()->isBanned(strtolower($this->getName())) or $this->server->getIPBans()->isBanned($this->getAddress()) or $this->server->getCIDBans()->isBanned($this->randomClientId)){
-			$this->close($this->getLeaveMessage(), TextFormat::RED . "You are banned");
+			$this->close("", TextFormat::RED . "You are banned");
 
 			return;
 		}
@@ -2119,12 +2119,12 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		foreach($this->server->getOnlinePlayers() as $p){
 			if($p !== $this and strtolower($p->getName()) === strtolower($this->getName())){
 				if($p->kick("logged in from another location") === false){
-					$this->close($this->getLeaveMessage(), "Logged in from another location");
+					$this->close("", "Logged in from another location");
 					return;
 				}
 			}elseif($p->loggedIn and $this->getUniqueId()->equals($p->getUniqueId())){
 				if($p->kick("logged in from another location") === false){
-					$this->close($this->getLeaveMessage(), "Logged in from another location");
+					$this->close("", "Logged in from another location");
 					return;
 				}
 			}
@@ -2170,7 +2170,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		}
 
 		if(!($nbt instanceof CompoundTag)){
-			$this->close($this->getLeaveMessage(), "Invalid data");
+			$this->close("", "Invalid data");
 
 			return;
 		}
@@ -2193,7 +2193,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 		$this->server->getPluginManager()->callEvent($ev = new PlayerLoginEvent($this, "Plugin reason"));
 		if($ev->isCancelled()){
-			$this->close($this->getLeaveMessage(), $ev->getKickMessage());
+			$this->close("", $ev->getKickMessage());
 
 			return;
 		}
@@ -3641,7 +3641,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	 * @return bool
 	 */
 	public function kick($reason = "", $isAdmin = true){
-		$this->server->getPluginManager()->callEvent($ev = new PlayerKickEvent($this, $reason, $this->getLeaveMessage()));
+		$this->server->getPluginManager()->callEvent($ev = new PlayerKickEvent($this, $reason));
 		if(!$ev->isCancelled()){
 			if($isAdmin){
 				$message = "Kicked by admin." . ($reason !== "" ? " Reason: " . $reason : "");
