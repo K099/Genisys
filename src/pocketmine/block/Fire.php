@@ -48,7 +48,7 @@ class Fire extends Flowable{
 	}
 
 	public function hasEntityCollision(){
-		return true;
+		return false;
 	}
 
 	public function getName() : string{
@@ -68,7 +68,7 @@ class Fire extends Flowable{
 	}
 
 	public function onEntityCollide(Entity $entity){
-		$ProtectL = 0;
+		/*$ProtectL = 0;
 		if(!$entity->hasEffect(Effect::FIRE_RESISTANCE)){
 			$ev = new EntityDamageByBlockEvent($this, $entity, EntityDamageEvent::CAUSE_FIRE, 1);
 			if($entity->attack($ev->getFinalDamage(), $ev) === true){
@@ -84,7 +84,7 @@ class Fire extends Flowable{
 		Server::getInstance()->getPluginManager()->callEvent($ev);
 		if(!$ev->isCancelled()){
 			$entity->setOnFire($ev->getDuration());
-		}
+		}*/
 	}
 
 	public function getDrops(Item $item) : array {
@@ -92,7 +92,7 @@ class Fire extends Flowable{
 	}
 
 	public function onUpdate($type){
-		if($type == Level::BLOCK_UPDATE_NORMAL or $type == Level::BLOCK_UPDATE_RANDOM or $type == Level::BLOCK_UPDATE_SCHEDULED){
+		/*if($type == Level::BLOCK_UPDATE_NORMAL or $type == Level::BLOCK_UPDATE_RANDOM or $type == Level::BLOCK_UPDATE_SCHEDULED){
 			if(!$this->getSide(Vector3::SIDE_DOWN)->isTopFacingSurfaceSolid() and !$this->canNeighborBurn()){
 				$this->getLevel()->setBlock($this, new Air(), true);
 				return Level::BLOCK_UPDATE_NORMAL;
@@ -173,13 +173,13 @@ class Fire extends Flowable{
 					}
 				}
 			}
-		}
+		}*/
 		return 0;
 	}
 
-	public function getTickRate() : int{
+	/*public function getTickRate() : int{
 		return 30;
-	}
+	}*/
 
 	/*public function onUpdate($type){
 		if($type === Level::BLOCK_UPDATE_NORMAL){
@@ -204,7 +204,7 @@ class Fire extends Flowable{
 	}*/
 
 	private function tryToCatchBlockOnFire(Block $block, int $bound, int $damage){
-		$burnAbility = $block->getBurnAbility();
+		/*$burnAbility = $block->getBurnAbility();
 
 		if(mt_rand(0, $bound) < $burnAbility){
 			if(mt_rand(0, $damage + 10) < 5){
@@ -222,10 +222,10 @@ class Fire extends Flowable{
 			if($block instanceof TNT){
 				$block->prime();
 			}
-		}
+		}*/
 	}
 
-	private function getChanceOfNeighborsEncouragingFire(Block $block){
+	/*private function getChanceOfNeighborsEncouragingFire(Block $block){
 		if($block->getId() !== self::AIR){
 			return 0;
 		}else{
@@ -235,5 +235,5 @@ class Fire extends Flowable{
 			}
 			return $chance;
 		}
-	}
+	}*/
 }

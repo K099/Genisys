@@ -45,7 +45,7 @@ class Cactus extends Transparent{
 	}
 
 	public function hasEntityCollision(){
-		return true;
+		return false;
 	}
 
 	public function getName() : string{
@@ -72,7 +72,7 @@ class Cactus extends Transparent{
 	}
 
 	public function onUpdate($type){
-		if($type === Level::BLOCK_UPDATE_NORMAL){
+		/*if($type === Level::BLOCK_UPDATE_NORMAL){
 			$down = $this->getSide(0);
 			if($down->getId() !== self::SAND and $down->getId() !== self::CACTUS){
 				$this->getLevel()->useBreakOn($this);
@@ -103,7 +103,7 @@ class Cactus extends Transparent{
 					$this->getLevel()->setBlock($this, $this);
 				}
 			}
-		}
+		}*/
 
 		return false;
 	}

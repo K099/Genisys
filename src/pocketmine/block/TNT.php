@@ -51,7 +51,7 @@ class TNT extends Solid implements ElectricalAppliance{
 	}
 
 	public function canBeActivated() : bool{
-		return true;
+		return false;
 	}
 
 	public function getBurnChance() : int{
@@ -63,7 +63,7 @@ class TNT extends Solid implements ElectricalAppliance{
 	}
 
 	public function prime(Player $player = null){
-		$this->meta = 1;
+		/*$this->meta = 1;
 		if($player != null and $player->isCreative()){
 			$dropItem = false;
 		}else{
@@ -89,11 +89,11 @@ class TNT extends Solid implements ElectricalAppliance{
 		]), $dropItem);
 
 		$tnt->spawnToAll();
-		$this->level->addSound(new TNTPrimeSound($this));
+		$this->level->addSound(new TNTPrimeSound($this));*/
 	}
 
 	public function onUpdate($type){
-		if($type == Level::BLOCK_UPDATE_SCHEDULED){
+		/*if($type == Level::BLOCK_UPDATE_SCHEDULED){
 			$sides = [0, 1, 2, 3, 4, 5];
 			foreach($sides as $side){
 				$block = $this->getSide($side);
@@ -104,23 +104,23 @@ class TNT extends Solid implements ElectricalAppliance{
 				}
 			}
 			return Level::BLOCK_UPDATE_SCHEDULED;
-		}
+		}*/
 		return false;
 	}
 
 	public function place(Item $item, Block $block, Block $target, $face, $fx, $fy, $fz, Player $player = null){
-		$this->getLevel()->setBlock($this, $this, true, false);
+		/*$this->getLevel()->setBlock($this, $this, true, false);
 
-		$this->getLevel()->scheduleUpdate($this, 40);
+		$this->getLevel()->scheduleUpdate($this, 40);*/
 	}
 
 	public function onActivate(Item $item, Player $player = null){
-		if($item->getId() === Item::FLINT_STEEL){
+		/*if($item->getId() === Item::FLINT_STEEL){
 			$this->prime($player);
 			$this->getLevel()->setBlock($this, new Air(), true);
 			$item->useOn($this);
 			return true;
-		}
+		}*/
 
 		return false;
 	}

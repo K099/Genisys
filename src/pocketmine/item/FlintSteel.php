@@ -41,11 +41,11 @@ class FlintSteel extends Tool{
 	}
 
 	public function canBeActivated() : bool{
-		return true;
+		return false;
 	}
 
 	public function onActivate(Level $level, Player $player, Block $block, Block $target, $face, $fx, $fy, $fz){
-		if($target->getId() === Block::OBSIDIAN and $player->getServer()->netherEnabled){//黑曜石 4*5最小 23*23最大
+		/*if($target->getId() === Block::OBSIDIAN and $player->getServer()->netherEnabled){//黑曜石 4*5最小 23*23最大
 			//$level->setBlock($block, new Fire(), true);
 			$tx = $target->getX();
 			$ty = $target->getY();
@@ -136,12 +136,11 @@ class FlintSteel extends Tool{
 				}
 			}
 			//return true;
-		}
+		}*/
 
-		if($block->getId() === self::AIR and ($target instanceof Solid)){
+		/*if($block->getId() === self::AIR and ($target instanceof Solid)){
 			$level->setBlock($block, new Fire(), true);
 
-			/** @var Fire $block */
 			$block = $level->getBlock($block);
 			if($block->getSide(Vector3::SIDE_DOWN)->isTopFacingSurfaceSolid() or $block->canNeighborBurn()){
 				$level->scheduleUpdate($block, $block->getTickRate() + mt_rand(0, 10));
@@ -154,7 +153,7 @@ class FlintSteel extends Tool{
 			}
 
 			return true;
-		}
+		}*/
 
 		return false;
 	}
