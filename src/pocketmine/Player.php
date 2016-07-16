@@ -2340,7 +2340,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 					$this->viewDistance = $packet->radius ** 2;
 				}*/
 				$pk = new ChunkRadiusUpdatedPacket();
-				$pk->radius = ($this->server->chunkRadius != -1) ? $this->server->chunkRadius : $packet->radius;
+				$pk->radius = $packet->radius;
 				$this->dataPacket($pk);
 				break;
 			case ProtocolInfo::PLAYER_INPUT_PACKET:
