@@ -3227,10 +3227,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 							}else{
 								$this->server->getPluginManager()->callEvent($ev = new PlayerChatEvent($this, $ev->getMessage()));
 								if(!$ev->isCancelled()){
-									$this->server->broadcastMessage($this->getServer()->getLanguage()->translateString($ev->getFormat(), [
-										$ev->getPlayer()->getDisplayName(),
-										$ev->getMessage()
-									]), $ev->getRecipients());
+									$this->server->broadcastMessage($this->getServer()->getLanguage()->translateString($ev->getFormat(), [$ev->getPlayer()->getDisplayName(),$ev->getMessage()]), $ev->getRecipients());
 								}
 							}
 						}
@@ -3855,142 +3852,9 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			return;
 		}
 
-		$message = "death.attack.generic";
-
-		$params = [
-			$this->getDisplayName()
-		];
-
-		$cause = $this->getLastDamageCause();
-
-		switch($cause === null ? EntityDamageEvent::CAUSE_CUSTOM : $cause->getCause()){
-			case EntityDamageEvent::CAUSE_ENTITY_ATTACK:
-				if($cause instanceof EntityDamageByEntityEvent){
-					$e = $cause->getDamager();
-					if($e instanceof Player){
-						$message = "death.attack.player";
-						$params[] = $e->getDisplayName();
-						break;
-					}elseif($e instanceof Living){
-						$message = "death.attack.mob";
-						$params[] = $e->getNameTag() !== "" ? $e->getNameTag() : $e->getName();
-						break;
-					}else{
-						$params[] = "Unknown";
-					}
-				}
-				break;
-			case EntityDamageEvent::CAUSE_PROJECTILE:
-				if($cause instanceof EntityDamageByEntityEvent){
-					$e = $cause->getDamager();
-					if($e instanceof Player){
-						$message = "death.attack.arrow";
-						$params[] = $e->getDisplayName();
-					}elseif($e instanceof Living){
-						$message = "death.attack.arrow";
-						$params[] = $e->getNameTag() !== "" ? $e->getNameTag() : $e->getName();
-						break;
-					}else{
-						$params[] = "Unknown";
-					}
-				}
-				break;
-			case EntityDamageEvent::CAUSE_SUICIDE:
-				$message = "death.attack.generic";
-				break;
-			case EntityDamageEvent::CAUSE_VOID:
-				$message = "death.attack.outOfWorld";
-				break;
-			case EntityDamageEvent::CAUSE_FALL:
-				if($cause instanceof EntityDamageEvent){
-					if($cause->getFinalDamage() > 2){
-						$message = "death.fell.accident.generic";
-						break;
-					}
-				}
-				$message = "death.attack.fall";
-				break;
-
-			case EntityDamageEvent::CAUSE_SUFFOCATION:
-				$message = "death.attack.inWall";
-				break;
-
-			case EntityDamageEvent::CAUSE_LAVA:
-				$message = "death.attack.lava";
-				break;
-
-			case EntityDamageEvent::CAUSE_FIRE:
-				$message = "death.attack.onFire";
-				break;
-
-			case EntityDamageEvent::CAUSE_FIRE_TICK:
-				$message = "death.attack.inFire";
-				break;
-
-			case EntityDamageEvent::CAUSE_DROWNING:
-				$message = "death.attack.drown";
-				break;
-
-			case EntityDamageEvent::CAUSE_CONTACT:
-				if($cause instanceof EntityDamageByBlockEvent){
-					if($cause->getDamager()->getId() === Block::CACTUS){
-						$message = "death.attack.cactus";
-					}
-				}
-				break;
-
-			case EntityDamageEvent::CAUSE_BLOCK_EXPLOSION:
-			case EntityDamageEvent::CAUSE_ENTITY_EXPLOSION:
-				if($cause instanceof EntityDamageByEntityEvent){
-					$e = $cause->getDamager();
-					if($e instanceof Player){
-						$message = "death.attack.explosion.player";
-						$params[] = $e->getDisplayName();
-					}elseif($e instanceof Living){
-						$message = "death.attack.explosion.player";
-						$params[] = $e->getNameTag() !== "" ? $e->getNameTag() : $e->getName();
-						break;
-					}
-				}else{
-					$message = "death.attack.explosion";
-				}
-				break;
-
-			case EntityDamageEvent::CAUSE_MAGIC:
-				$message = "death.attack.magic";
-				break;
-
-			case EntityDamageEvent::CAUSE_CUSTOM:
-				break;
-
-			default:
-
-		}
-
 		Entity::kill();
 
-		$this->server->getPluginManager()->callEvent($ev = new PlayerDeathEvent($this, $this->getDrops(), new TranslationContainer($message, $params)));
-
-		if(!$ev->getKeepInventory() and !$this->server->keepInventory){
-			foreach($ev->getDrops() as $item){
-				$this->level->dropItem($this, $item);
-			}
-
-			if($this->inventory !== null){
-				$this->inventory->clearAll();
-			}
-		}
-
-		if($this->server->expEnabled and (!$ev->getKeepExperience() and !$this->server->keepInventory)){
-			$exp = $this->getExp();
-			if($exp > 100) $exp = 100;
-			$this->getLevel()->spawnXPOrb($this->add(0, 0.2, 0), $exp);
-			$this->setExperienceAndLevel(0, 0);
-		}
-
-		if($ev->getDeathMessage() != ""){
-			$this->server->broadcast($ev->getDeathMessage(), Server::BROADCAST_CHANNEL_USERS);
-		}
+		$this->server->getPluginManager()->callEvent($ev = new PlayerDeathEvent($this, $this->getDrops()));
 
 		$pos = $this->getSpawn();
 		

@@ -39,9 +39,8 @@ class PlayerDeathEvent extends EntityDeathEvent{
 	 * @param Item[]               $drops
 	 * @param string|TextContainer $deathMessage
 	 */
-	public function __construct(Player $entity, array $drops, $deathMessage){
+	public function __construct(Player $entity, array $drops){
 		parent::__construct($entity, $drops);
-		$this->deathMessage = $deathMessage;
 	}
 
 	/**
