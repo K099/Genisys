@@ -2253,7 +2253,10 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			$pk->slots = array_merge(Item::getCreativeItems(), $this->personalCreativeItems);
 			$this->dataPacket($pk);
 		}
-		
+
+		$this->server->sendFullPlayerListData($this);
+		$this->server->sendRecipeList($this);
+
 		$pk = new SetEntityDataPacket();
 		$pk->eid = 0;
 		$pk->metadata = [self::DATA_LEAD_HOLDER => [self::DATA_TYPE_LONG, -1]];

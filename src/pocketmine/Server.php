@@ -2697,9 +2697,6 @@ class Server{
 		if($this->sendUsageTicker > 0){
 			$this->uniquePlayers[$player->getRawUniqueId()] = $player->getRawUniqueId();
 		}
-
-		$this->sendFullPlayerListData($player);
-		$this->sendRecipeList($player);
 	}
 
 	public function addPlayer($identifier, Player $player){
