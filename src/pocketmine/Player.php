@@ -2584,7 +2584,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 						break;
 					}
 
-					if($item->getId() === Item::FISHING_ROD){
+					/*if($item->getId() === Item::FISHING_ROD){
 						if($this->isFishing()){
 							$this->server->getPluginManager()->callEvent($ev = new PlayerUseFishingRodEvent($this, PlayerUseFishingRodEvent::ACTION_STOP_FISHING));
 						}else{
@@ -2625,9 +2625,6 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 								new DoubleTag("", $this->z)
 							]),
 							"Motion" => new ListTag("Motion", [
-								/*new DoubleTag("", $aimPos->x),
-								new DoubleTag("", $aimPos->y),
-								new DoubleTag("", $aimPos->z)*/
 								//TODO: remove this because of a broken client
 								new DoubleTag("", -sin($this->yaw / 180 * M_PI) * cos($this->pitch / 180 * M_PI)),
 								new DoubleTag("", -sin($this->pitch / 180 * M_PI)),
@@ -2766,7 +2763,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 						}else{
 							$thrownPotion->spawnToAll();
 						}
-					}
+					}*/
 
 					$this->setDataFlag(self::DATA_FLAGS, self::DATA_FLAG_ACTION, true);
 					$this->startAction = $this->server->getTick();
