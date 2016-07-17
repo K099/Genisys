@@ -1145,45 +1145,18 @@ abstract class Entity extends Location implements Metadatable{
 	}
 
 	public function isInsideOfPortal(){
-		$blocks = $this->getBlocksAround();
-
-		foreach($blocks as $block){
-			if($block instanceof Portal){
-				return true;
-			}
-		}
-
 		return false;
 	}
 
 	public function isInsideOfWater(){
-		$block = $this->level->getBlock($this->temporalVector->setComponents(Math::floorFloat($this->x), Math::floorFloat($y = ($this->y + $this->getEyeHeight())), Math::floorFloat($this->z)));
-
-		if($block instanceof Water){
-			$f = ($block->y + 1) - ($block->getFluidHeightPercent() - 0.1111111);
-			return $y < $f;
-		}
-
 		return false;
 	}
 
 	public function isInsideOfSolid(){
-		$block = $this->level->getBlock($this->temporalVector->setComponents(Math::floorFloat($this->x), Math::floorFloat($y = ($this->y + $this->getEyeHeight())), Math::floorFloat($this->z)));
-
-		$bb = $block->getBoundingBox();
-
-		if($bb !== null and $block->isSolid() and !$block->isTransparent() and $bb->intersectsWith($this->getBoundingBox())){
-			return true;
-		}
 		return false;
 	}
 
 	public function isInsideOfFire(){
-		foreach($this->getBlocksAround() as $block){
-			if($block instanceof Fire){
-				return true;
-			}
-		}
 		return false;
 	}
 
