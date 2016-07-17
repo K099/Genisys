@@ -1056,7 +1056,7 @@ abstract class Entity extends Location implements Metadatable{
 		$this->fallDistance = 0;
 	}
 
-	protected function updateFallState($distanceThisTick, $onGround){
+	/*protected function updateFallState($distanceThisTick, $onGround){
 		if($onGround === true){
 			if($this->fallDistance > 0){
 				if($this instanceof Living){
@@ -1067,13 +1067,13 @@ abstract class Entity extends Location implements Metadatable{
 		}elseif($distanceThisTick < 0){
 			$this->fallDistance -= $distanceThisTick;
 		}
-	}
+	}*/
 
 	public function getBoundingBox(){
 		return $this->boundingBox;
 	}
 
-	public function fall($fallDistance){
+	/*public function fall($fallDistance){
 		if($this instanceof Player and $this->isSpectator()){
 			return;
 		}
@@ -1093,7 +1093,7 @@ abstract class Entity extends Location implements Metadatable{
 			$ev = new EntityDamageEvent($this, EntityDamageEvent::CAUSE_FALL, $damage);
 			$this->attack($ev->getFinalDamage(), $ev);
 		}
-	}
+	}*/
 
 	public function handleLavaMovement(){ //TODO
 
@@ -1220,7 +1220,7 @@ abstract class Entity extends Location implements Metadatable{
                         }*/
 		}
 		$this->isCollided = $this->onGround;
-		$this->updateFallState($dy, $this->onGround);
+//		$this->updateFallState($dy, $this->onGround);
 
 
 		Timings::$entityMoveTimer->stopTiming();
@@ -1362,7 +1362,7 @@ abstract class Entity extends Location implements Metadatable{
 			$this->checkChunks();
 
 			$this->checkGroundState($movX, $movY, $movZ, $dx, $dy, $dz);
-			$this->updateFallState($dy, $this->onGround);
+//			$this->updateFallState($dy, $this->onGround);
 
 			if($movX != $dx){
 				$this->motionX = 0;
