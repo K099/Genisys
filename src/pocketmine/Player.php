@@ -2802,7 +2802,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 						break;
 					case PlayerActionPacket::ACTION_RELEASE_ITEM:
 						if($this->startAction > -1 and $this->getDataFlag(self::DATA_FLAGS, self::DATA_FLAG_ACTION)){
-							if($this->inventory->getItemInHand()->getId() === Item::BOW){
+							/*if($this->inventory->getItemInHand()->getId() === Item::BOW){
 								$bow = $this->inventory->getItemInHand();
 								if($this->isSurvival() and !$this->inventory->contains(Item::get(Item::ARROW, null))){
 									$this->inventory->sendContents($this);
@@ -2876,7 +2876,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 										$ev->getProjectile()->spawnToAll();
 									}
 								}
-							}
+							}*/
 						}elseif($this->inventory->getItemInHand()->getId() === Item::BUCKET and $this->inventory->getItemInHand()->getDamage() === 1){ //Milk!
 							$this->server->getPluginManager()->callEvent($ev = new PlayerItemConsumeEvent($this, $this->inventory->getItemInHand()));
 							if($ev->isCancelled()){
