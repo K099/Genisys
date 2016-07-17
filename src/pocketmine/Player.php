@@ -948,7 +948,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 			}
 		}
 
-		if($this->chunkLoadCount >= 32 and $this->spawned === false and $this->teleportPosition === null){
+		if($this->chunkLoadCount >= 25 and $this->spawned === false and $this->teleportPosition === null){
 			$this->doFirstSpawn();
 		}
 

@@ -36,7 +36,7 @@ memory:
 
  #Main thread hard memory limit in megabytes. Set to 0 to disable
  #This will stop the server when the limit is surpassed
- main-hard-limit: 1024
+ main-hard-limit: 0
 
  #Period in ticks to check memory (default 1 second)
  check-rate: 20
@@ -50,7 +50,7 @@ memory:
  garbage-collection:
   #Period in ticks to fire the garbage collector manually (default 30 minutes), set to 0 to disable
   #This only affect the main thread. Other threads should fire their own collections
-  period: 36000
+  period: 0
 
   #Fire asynchronous tasks to collect garbage from workers
   collect-async-worker: true
@@ -69,7 +69,7 @@ memory:
   low-memory-trigger: true
 
  world-caches:
-  disable-chunk-cache: true
+  disable-chunk-cache: false
   low-memory-trigger: true
 
 
@@ -117,9 +117,9 @@ chunk-sending:
 
 chunk-ticking:
  #Max amount of chunks processed each tick
- per-tick: 16
+ per-tick: 0
  #Radius of chunks around a player to tick
- tick-radius: 3
+ tick-radius: 0
  light-updates: false
  clear-tick-list: true
 
