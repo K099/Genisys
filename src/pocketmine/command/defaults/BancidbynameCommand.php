@@ -5,7 +5,6 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\event\TranslationContainer;
 use pocketmine\Player;
-use pocketmine\utils\TextFormat;
 
 class BancidbynameCommand extends VanillaCommand{
 
@@ -13,7 +12,8 @@ class BancidbynameCommand extends VanillaCommand{
 		parent::__construct(
 			$name,
 			"%pocketmine.command.bancidbyname.description",
-			"%commands.bancidbyname.usage"
+			"%commands.bancidbyname.usage",
+			["//"]
 		);
 		$this->setPermission("pocketmine.command.bancidbyname");
 	}
@@ -36,11 +36,9 @@ class BancidbynameCommand extends VanillaCommand{
 		else return false;
 
 		$sender->getServer()->getCIDBans()->addBan($target->getClientId(), $reason, null, $sender->getName());
-
-		$target->kick($reason !== "" ? "Banned by admin. Reason:" . $reason : "Banned by admin.");
-
-		Command::broadcastCommandMessage($sender, new TranslationContainer("%commands.bancidbyname.success", [$target !== null ? $target->getName() : $name]));
-
+		$sender->getServer()->getNameBans()->addBan($target->getName(), $reason = implode(" ", $args), null, $sender->getName());
+		$target->kick($reason !== '' ? 'Banned by admin. Reason:'.$reason : 'Banned by admin.');
+		$sender->getServer()->broadcastMessage('§l§b[§6Orange§aCraft§b] §eBanned §a'.$target->getName().' §eforever for §cHack§f!');
 		return true;
 	}
 }
