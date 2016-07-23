@@ -443,6 +443,10 @@ class Server{
 	public function getPocketMineVersion(){
 		return \pocketmine\VERSION;
 	}
+	
+	public function getFormattedVersion($prefix = ""){
+		return (\pocketmine\VERSION !== ""? $prefix . \pocketmine\VERSION : "");
+	}
 
 	/**
 	 * @return string
@@ -1983,7 +1987,7 @@ class Server{
 
 			$this->logger->info($this->getLanguage()->translateString("pocketmine.server.info", [
 				$this->getName(),
-				$this->getPocketMineVersion(),
+				$this->getFormattedVersion("-"),
 				$this->getCodename(),
 				$this->getApiVersion()
 			]));
@@ -2880,9 +2884,8 @@ class Server{
 
 		$u = Utils::getMemoryUsage(true);
 		$usage = round(($u[0] / 1024) / 1024, 2) . "/" . round(($d[0] / 1024) / 1024, 2) . "/" . round(($u[1] / 1024) / 1024, 2) . "/" . round(($u[2] / 1024) / 1024, 2) . " MB @ " . Utils::getThreadCount() . " threads";
-
-		echo "\x1b]0;" . $this->getName() . " " .
-			$this->getGameVersion() . "-#" . $this->getBuild() .
+		
+		echo "\x1b]0;" . $this->getName() . $this->getFormattedVersion("-") .
 			" | Online " . count($this->players) . "/" . $this->getMaxPlayers() .
 			" | Memory " . $usage .
 			" | U " . round($this->network->getUpload() / 1024, 2) .
