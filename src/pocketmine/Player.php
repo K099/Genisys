@@ -3115,7 +3115,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 					if($target->attack($ev->getFinalDamage(), $ev) === true){
 						$fireAspectL = $item->getEnchantmentLevel(Enchantment::TYPE_WEAPON_FIRE_ASPECT);
 						if($fireAspectL > 0){
-							$fireEv = new EntityCombustByEntityEvent($this, $target, $fireAspectL * 4 - 1, $ev->getFireProtectL());
+							$fireEv = new EntityCombustByEntityEvent($this, $target, $fireAspectL * 4, $ev->getFireProtectL());
 							Server::getInstance()->getPluginManager()->callEvent($fireEv);
 							if(!$fireEv->isCancelled()){
 								$target->setOnFire($fireEv->getDuration());
@@ -3569,12 +3569,6 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 						if(!isset($t->namedtag->Creator) or $t->namedtag["Creator"] !== $this->getRawUniqueId()){
 							$ev->setCancelled();
-						}else{
-							foreach($ev->getLines() as $line){
-								if(mb_strlen($line, "UTF-8") > 16){
-									$ev->setCancelled();
-								}
-							}
 						}
 
 						$this->server->getPluginManager()->callEvent($ev);
