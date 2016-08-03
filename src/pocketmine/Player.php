@@ -3842,35 +3842,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 		Entity::kill();
 
-<<<<<<< HEAD
 		$this->server->getPluginManager()->callEvent($ev = new PlayerDeathEvent($this, $this->getDrops()));
-=======
-		$ev = new PlayerDeathEvent($this, $this->getDrops(), new TranslationContainer($message, $params));
-		$ev->setKeepInventory($this->server->keepInventory);
-		$ev->setKeepExperience($this->server->keepExperience);
-		$this->server->getPluginManager()->callEvent($ev);
-
-		if(!$ev->getKeepInventory()){
-			foreach($ev->getDrops() as $item){
-				$this->level->dropItem($this, $item);
-			}
-
-			if($this->inventory !== null){
-				$this->inventory->clearAll();
-			}
-		}
-
-		if($this->server->expEnabled and !$ev->getKeepExperience()){
-			$exp = $this->getExp();
-			$exp = min(100, $exp);
-			$this->getLevel()->spawnXPOrb($this->add(0, 0.2, 0), $exp);
-			$this->setExperienceAndLevel(0, 0);
-		}
-
-		if($ev->getDeathMessage() != ""){
-			$this->server->broadcast($ev->getDeathMessage(), Server::BROADCAST_CHANNEL_USERS);
-		}
->>>>>>> refs/remotes/iTXTech/master
 
 		$pos = $this->getSpawn();
 		
